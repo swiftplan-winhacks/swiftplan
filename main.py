@@ -1,8 +1,10 @@
 import os, os.path, random, hashlib, sys, json
 from flask import Flask, flash, render_template, redirect, request, url_for, jsonify, session, Response
+from database import *
 
 app = Flask(__name__)
 app.secret_key = '9je0jaj09jk9dkakdwjnjq'
+db = Database("swiftplan")
 
 @app.route('/')
 def main():
@@ -24,5 +26,9 @@ def handle_data():
         except:
             break
     return render_template('index.html')
+
+@app.route('/add_event', methods=['POST'])
+def handle_data():
+    
 
 app.run(host='0.0.0.0', port=80)
