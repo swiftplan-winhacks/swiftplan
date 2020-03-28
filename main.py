@@ -17,18 +17,14 @@ def index():
 
 @app.route('/handle_data', methods=['POST'])
 def handle_data():
-    i=0
-    print(request.form['start'])
-    while(1):
-        try:
-            print(request.form['location'+str(i)])
-            i+=1
-        except:
-            break
+    try:
+        print(request.form['name'])
+        print(request.form['day'])
+        print(request.form['type'])
+        print(request.form['localization'])
+        print(request.form['hour'])
+        print(request.form['minute'])
+        print(request.form['duration'])
+    except:
+        pass
     return render_template('index.html')
-
-@app.route('/add_event', methods=['POST'])
-def handle_data():
-    
-
-app.run(host='0.0.0.0', port=80)
