@@ -5,6 +5,9 @@ import json
 from copy import deepcopy
 from event import Event, Location, Timeframe
 
+# from mapsy import timeDistance
+
+HOME_LOCATION = Location(52.22977, 21.01178) # PKIN
 
 @dataclass
 class Task:
@@ -78,8 +81,19 @@ class Planner:
         if (loc_id1, loc_id2, time) in self.distances:
             return self.distances[(loc_id1, loc_id2, time)]
         else:
-            # zapytać API, zamienić loc_id na location przez self.events[loc_id].location // plus escape dla home location
-            dist = datetime.timedelta(0)  # z API
+            if loc_id1 == -1:  # home destination
+                l1 = HOME_LOCATION
+            else:
+                l1 = self.events[loc_id1].location
+            
+            if loc_id2 == -1:
+                l2 = HOME_LOCATION
+            else:
+                l2 = self.events[loc_id2].location
+
+            dist = datetime.timedelta(0)  # comment out
+            # dist = timeDistance(l1, l2, time) # uncomment
+
             self.distances[(loc_id1, loc_id2, time)] = dist
             return dist
 
@@ -91,7 +105,7 @@ class Planner:
             if aval_time > datetime.timedelta(0):
                 tot_dur = self.dist(ivl.loc_id_b, t.loc_id, s_time) + \
                     t.dur + \
-                    self.dist(t.loc_id, ivl.end, s_time + t.dur)
+                    self.dist(t.loc_id, ivl.loc_id_e, s_time + t.dur)
                 if tot_dur <= aval_time:
                     # print("Posssible", t, ivl)
                     break
@@ -189,7 +203,7 @@ def test(n):
     for e in events:
         print(e.scheluded_datetime.start_date, e.scheluded_datetime.start_time)
 
+
 if __name__ == "__main__":
     test(3)
     test(7)
-    
