@@ -5,7 +5,7 @@ import json
 from copy import deepcopy
 from event import Event, Location, Timeframe
 
-# from mapsy import timeDistance
+from mapsy import timeDistance
 
 HOME_LOCATION = Location(52.22977, 21.01178) # PKIN
 
@@ -91,8 +91,8 @@ class Planner:
             else:
                 l2 = self.events[loc_id2].location
 
-            dist = datetime.timedelta(0)  # comment out
-            # dist = timeDistance(l1, l2, time) # uncomment
+            #dist = datetime.timedelta(0)
+            dist = timeDistance(l1, l2, time)
 
             self.distances[(loc_id1, loc_id2, time)] = dist
             return dist
