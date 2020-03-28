@@ -1,24 +1,124 @@
-<html>
-   <head>
-      <title>Prototype examples</title>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-      <script>
-        var i=0;
-        function showResult(){
-          $( "#container" ).append( "<br/><input name='location"+i+"' type='text'></input>" );
-          i+=1;
-        }
-      </script>
+<!DOCTYPE html>
+<html lang="en">
 
-   </head>
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Add Event">
+    <meta name="author" content="SwiftPlan">
+    <meta name="keywords" content="swiftplan">
 
-   <body>
-     <h2>Greetings</h2>
-     <form id="container" action="{{ url_for('handle_data') }}" method="post">
-       <input name="start" type="text"></input>
+    <!-- Title Page-->
+    <title>SwiftPlan</title>
 
-      <input type = "button" value = "Click" onclick = "showResult();"/>
-      <input type="submit"/>
-    </form>
-   </body>
+    <script>
+      function showTime(){
+          // Get the checkbox
+          var checkBox = document.getElementById("check");
+          // Get the output text
+          var text = document.getElementById("container1");
+
+          // If the checkbox is checked, display the output text
+          if (checkBox.checked == true){
+            text.style.display = "block";
+          } else {
+            text.style.display = "none";
+          }
+      }
+    </script>
+
+    <!-- Icons font CSS-->
+    <link href="{{ url_for('static',filename='vendor/mdi-font/css/material-design-iconic-font.min.css') }}" rel="stylesheet" media="all">
+    <link href="{{ url_for('static',filename='vendor/font-awesome-4.7/css/font-awesome.min.css') }}" rel="stylesheet" media="all">
+    <!-- Font special for pages-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+
+    <!-- Vendor CSS-->
+    <link href="{{ url_for('static',filename='vendor/select2/select2.min.css') }}" rel="stylesheet" media="all">
+    <link href="{{ url_for('static',filename='vendor/datepicker/daterangepicker.css') }}" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="{{ url_for('static',filename='css/main.css') }}" rel="stylesheet" media="all">
+</head>
+
+<body>
+    <div class="page-wrapper bg-red p-t-180 p-b-100 font-robo">
+        <div class="wrapper wrapper--w960">
+            <div class="card card-2">
+                <div class="card-heading"></div>
+                <div class="card-body">
+                    <h2 class="title">Add event</h2>
+                    <form action="{{ url_for('handle_data') }}" method="post">
+                        <div class="input-group">
+                            <input class="input--style-2" type="text" placeholder="Name" name="name">
+                        </div>
+                        <div class="row row-space">
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <input class="input--style-2 js-datepicker" type="text" placeholder="Date" name="day">
+                                    <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <div class="rs-select2 js-select-simple select--no-search">
+                                        <select name="type" onchange="showTime()" id="selection">
+                                            <option disabled="disabled" selected="selected">Type</option>
+                                            <option value="school">School/Work</option>
+                                            <option value="shopping">Shopping</option>
+                                            <option value="meeting">Meeting</option>
+                                            <option value="food">Food</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                        <div class="select-dropdown"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-space">
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <input class="input--style-2" type="text" placeholder="Localization" name="localization">
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                  <label for="check">Unique start time & duration</label><input type='checkbox' id="check" onclick="showTime()">
+                      </div>
+                        </div>
+                        <div id="container1" style="display: none;">
+                          <div class="row row-space">
+                              <div class="col-2">
+                                  <div class="input-group">
+                          <input width="20px" display="inline" type="number" name="hour" min="0" max="23" step="1" value="00"><p display="inline"></p></div></div>
+                          <div class="col-2">
+                          <div class="input-group">
+                            <input width="20px" display="inline" type="number" name="minute" min="0" max="59" step="1" value="00">
+                          </div>
+                        </div>
+                </div>
+                          Duration: <input type="number" name="duration" min="0" max="60" step="1" value="00">
+                        </div>
+                        <div class="p-t-30">
+                            <button class="btn btn--radius btn--green" type="submit">Add event</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Jquery JS-->
+    <script src="{{ url_for('static',filename='vendor/jquery/jquery.min.js') }}"></script>
+    <!-- Vendor JS-->
+    <script src="{{ url_for('static',filename='vendor/select2/select2.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='vendor/datepicker/moment.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='vendor/datepicker/daterangepicker.js') }}"></script>
+
+    <!-- Main JS-->
+    <script src="{{ url_for('static',filename='js/global.js') }}"></script>
+
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+
 </html>
+<!-- end document-->
