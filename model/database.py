@@ -117,10 +117,7 @@ class Database:
             "{event.scheduled_datetime.duration}"
         );
         """
-
-        print(query)
         
-
         try:
             c.execute(query)
             conn.commit()
@@ -175,4 +172,70 @@ class Database:
 
         conn.close()
 
+    def fetchEvents(self, username):
+        conn = self.connect()
+        c = conn.cursor()
 
+        query = f"""
+        SELECT * FROM {username}
+        """
+        
+        """
+        NULL,
+            "{event.name}",
+            "{event.type}",
+            "{event.desc}",
+            {event.location.lat},
+            {event.location.lng},
+            {event.isFixed()},
+            "{event.timeframe.start_date}",
+            "{event.timeframe.start_time}",
+            "{event.timeframe.duration}",
+            "{event.timeframe.end_date}",
+            "{event.timeframe.end_time}",
+            "{event.scheduled_datetime.start_date}",
+            "{event.scheduled_datetime.start_time}",
+            "{event.scheduled_datetime.duration}"
+        """
+        data = []
+        try:
+            for row in c.execute(query):
+                print(row)
+                e = Event(
+                    name = row[1],
+                    type = row[2],
+                    desc = row[3],
+                    location = Location(
+                        lat = row[4],
+                        lng = row[5]
+                    ),
+                    is_fixed = int(row[6]),
+                    timeframe = Timeframe(
+                        start_date = row[7],
+                        start_time = row[8],
+                        end_date = row[10],
+                        end_time = row[11],
+                        duration = row[9]
+                    )
+                )
+
+                e.reschedule(Timeframe(row[12], row[13], row[12], row[13], row[14]))
+
+                e.setId(row[0])
+
+                data.append(e)
+
+        except Exception as e:
+            print("Could not fetch data because of an error: ", e)
+
+        conn.close()
+        return data
+
+
+#test
+# db = Database("b")
+# db.addUser("test", "test")
+# for i in range(10):
+#     t = Timeframe("01.01.1234", "13:00","02.01.1234", "13:21", "3:00")
+#     e = Event(f"a{i}", "nothing", "lol", Location(00.123,00.123), True, t)
+#     db.addEvent("test", e)
