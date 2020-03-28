@@ -1,0 +1,24 @@
+<html>
+   <head>
+      <title>Prototype examples</title>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script>
+        var i=0;
+        function showResult(){
+          $( "#container" ).append( "<br/><input name='location"+i+"' type='text'></input>" );
+          i+=1;
+        }
+      </script>
+
+   </head>
+
+   <body>
+     <h2>Greetings</h2>
+     <form id="container" action="{{ url_for('handle_data') }}" method="post">
+       <input name="start" type="text"></input>
+
+      <input type = "button" value = "Click" onclick = "showResult();"/>
+      <input type="submit"/>
+    </form>
+   </body>
+</html>
