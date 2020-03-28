@@ -26,6 +26,18 @@
             text.style.display = "none";
           }
       }
+      function showFixed(){
+        var checkBox = document.getElementById("fixed");
+        // Get the output text
+        var text = document.getElementById("container2");
+
+        // If the checkbox is checked, display the output text
+        if (checkBox.checked == true){
+          text.style.display = "block";
+        } else {
+          text.style.display = "none";
+        }
+      }
     </script>
 
     <!-- Icons font CSS-->
@@ -90,14 +102,24 @@
                           <div class="row row-space">
                               <div class="col-2">
                                   <div class="input-group">
+                                    Duration: <input type="number" name="duration" min="0" max="240" step="1" value="00">
+                          </div>
+                        </div>
+                          <div class="col-2">
+                            The task is fixed (set start time): <input display="inline" type="checkbox" name="fixed" id="fixed" onclick="showFixed();">
+                        </div>
+                </div>
+                          <div id="container2" class="row row-space" style="display: none;">
+                              <div class="col-2">
+                                  <div class="input-group">Hour:
                           <input width="20px" display="inline" type="number" name="hour" min="0" max="23" step="1" value="00"><p display="inline"></p></div></div>
                           <div class="col-2">
                           <div class="input-group">
+                            Minute:
                             <input width="20px" display="inline" type="number" name="minute" min="0" max="59" step="1" value="00">
                           </div>
                         </div>
                 </div>
-                          Duration: <input type="number" name="duration" min="0" max="60" step="1" value="00">
                         </div>
                         <div class="p-t-30">
                             <button class="btn btn--radius btn--green" type="submit">Add event</button>
