@@ -23,6 +23,7 @@ def handle_data():
         print(request.form['hour'])
         print(request.form['minute'])
         print(request.form['duration'])
+        print(request.form['fixed'])
     except:
         pass
     return render_template('index.html')
