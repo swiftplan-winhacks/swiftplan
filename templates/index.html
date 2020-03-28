@@ -13,23 +13,10 @@
     <title>SwiftPlan</title>
 
     <script>
-      function showTime(){
-          // Get the checkbox
-          var checkBox = document.getElementById("check");
-          // Get the output text
-          var text = document.getElementById("container1");
-
-          // If the checkbox is checked, display the output text
-          if (checkBox.checked == true){
-            text.style.display = "block";
-          } else {
-            text.style.display = "none";
-          }
-      }
       function showFixed(){
         var checkBox = document.getElementById("fixed");
         // Get the output text
-        var text = document.getElementById("container2");
+        var text = document.getElementById("container3");
 
         // If the checkbox is checked, display the output text
         if (checkBox.checked == true){
@@ -88,42 +75,57 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="input-group">
+                            <input class="input--style-2" type="text" placeholder="Location" name="location">
+                        </div>
+                        <div class="input-group">
+                            <input class="input--style-2" type="text" placeholder="Duration" name="duration">
+                        </div>
+                        <div id="container3" style="display: none">
+                        <div class="input-group">
+                            Start
+                        </div>
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
-                                    <input class="input--style-2" type="text" placeholder="Localization" name="localization">
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                  <label for="check">Unique start time & duration</label><input type='checkbox' id="check" onclick="showTime()">
+                                  Hour: <input type="number" name="end_hour" min="0" max="23" step="1" value="00">
+                        </div>
                       </div>
-                        </div>
-                        <div id="container1" style="display: none;">
-                          <div class="row row-space">
-                              <div class="col-2">
-                                  <div class="input-group">
-                                    Duration: <input type="number" name="duration" min="0" max="480" step="1" value="00">
-                          </div>
-                        </div>
-                          <div class="col-2">
-                            The task is fixed (set start time): <input display="inline" type="checkbox" name="fixed" id="fixed" onclick="showFixed();">
-                        </div>
-                </div>
-                <div id="container2" style="display: none;">
-                  <div class="row row-space">
-                      <div class="col-2">
+                        <div class="col-2">
                           <div class="input-group">
-                            Hour: <input type="number" name="duration" min="0" max="23" step="1" value="00">
+                            Minute: <input type="number" name="end_minute" min="0" max="59" step="1" value="00">
                   </div>
                 </div>
-                  <div class="col-2">
-                    <div class="input-group">
-                      Minute: <input type="number" name="duration" min="0" max="59" step="1" value="00">
+              </div>
+              <div class="input-group">
+                  <input class="input--style-2 js-datepicker" type="text" placeholder="Date" name="end_day">
+                  <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
+              </div>
             </div>
-                </div>
-        </div>
-      </div>
+                        <div class="input-group">
+                            Deadline:
                         </div>
+                        <div class="row row-space">
+                            <div class="col-2">
+                                <div class="input-group">
+                                  Hour: <input type="number" name="hour" min="0" max="23" step="1" value="00">
+                        </div>
+                      </div>
+                        <div class="col-2">
+                          <div class="input-group">
+                            Minute: <input type="number" name="minute" min="0" max="59" step="1" value="00">
+                  </div>
+                </div>
+              </div>
+              <div class="row row-space">
+                  <div class="col-2">
+                        Fixed:
+            </div>
+              <div class="col-2">
+                  <input display="inline" type="checkbox" name="fixed" id="fixed" onclick="showFixed()">
+      </div>
+    </div>
+
                         <div class="p-t-30">
                             <button class="btn btn--radius btn--green" type="submit">Add event</button>
                         </div>
