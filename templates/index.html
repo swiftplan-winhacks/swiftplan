@@ -37,15 +37,12 @@
                             <a href="/addevent"><button class="btn btn--radius btn--green">+ Add Event</button></a>
                         </div>
                         <div>
-                          <br/><br/>Today:<br/>
+                          <br/><br/><h2>Today:</h2><br/><br/>
                           {% for event in events %}
                           <center>
-                          <hr /><h2>{{ event.name }}</h2>
-                          <h3>{{event.type}} {{event.duration}}</h3>
-                          <h4>Start: {{ event.timeframe.start_date }} {{event.timeframe.start_time}}</h4>
-                          <h4>End: {{ event.timeframe.end_date }} {{event.timeframe.end_time}}</h4>
-                          <p>Location: {{ event.lat }} {{ event.long }}</p>
-                          <p>{{ event.description }}</p>
+                          <hr /><h2>Name: {{ event.name }}</h2>
+                          <h3>Type: {{event.type}} | Duration: {{event.duration}}</h3>
+                          <p>Description: {{ event.desc }}</p>
                           </center>
                           {% endfor %}
                         </div>
