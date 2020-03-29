@@ -7,7 +7,8 @@ from event import Event, Location, Timeframe
 
 from mapsy import timeDistance
 
-HOME_LOCATION = Location(52.22977, 21.01178) # PKIN
+HOME_LOCATION = Location(52.22977, 21.01178)  # PKIN
+
 
 @dataclass
 class Task:
@@ -22,7 +23,7 @@ class Task:
 
 class Interval(NamedTuple):
     begin: datetime.datetime
-    end: datetime.datetimePKIN
+    end: datetime.datetime
     loc_id_b: Tuple
     loc_id_e: Tuple
 
@@ -51,7 +52,7 @@ class Planner:
         dt_fmt = "%d.%m.%Y %H:%M"
         rigid_tasks = []
         flexible_tasks = []
-PKIN
+
         for i, e in enumerate(self.events):
             b_st = e.timeframe.start_date + " " + e.timeframe.start_time
             b_t = datetime.datetime.strptime(b_st, dt_fmt)
@@ -78,23 +79,24 @@ PKIN
         return rigid_tasks, flexible_tasks, s_time, e_time
 
     def dist(self, loc_id1, loc_id2, time):
-        if (loc_id1, loc_id2, time) in self.distances:
-            return self.distances[(loc_id1, loc_id2, time)]
+        if loc_id1 == -1:  # home destination
+            l1 = HOME_LOCATION
         else:
-            if loc_id1 == -1:  # home destination
-                l1 = HOME_LOCATION
-            else:
-                l1 = self.events[loc_id1].location
-            
-            if loc_id2 == -1:
-                l2 = HOME_LOCATION
-            else:
-                l2 = self.events[loc_id2].location
+            l1 = self.events[loc_id1].location
+
+        if loc_id2 == -1:
+            l2 = HOME_LOCATION
+        else:
+            l2 = self.events[loc_id2].location
+
+        if (l1.latlngtup(), l2.latlngtup(), time) in self.distances:
+            return self.distances[(l1.latlngtup(), l2.latlngtup(), time)]
+        else:
 
             #dist = datetime.timedelta(0)
             dist = timeDistance(l1, l2, time)
 
-            self.distances[(loc_id1, loc_id2, time)] = dist
+            self.distances[(l1.latlngtup(), l2.latlngtup(), time)] = dist
             return dist
 
     def place(self, t: Task, invls):
@@ -191,7 +193,7 @@ def test(n):
     for i in range(n):
         t = Timeframe("01.04.2020", "13:00", "02.04.2020", "13:21", "3:00")
         e = Event(f"a{i}", "nothing", "lol",
-                  Location(00.123, 00.123), False, t)
+                  Location(52.237082385, 21.025083233), False, t)
         events.append(e)
 
     print("Before:")
