@@ -5,27 +5,12 @@
     <!-- Required meta tags-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Add Event">
+    <meta name="description" content="Your Events">
     <meta name="author" content="SwiftPlan">
     <meta name="keywords" content="swiftplan">
 
     <!-- Title Page-->
     <title>SwiftPlan</title>
-
-    <script>
-      function showFixed(){
-        var checkBox = document.getElementById("fixed");
-        // Get the output text
-        var text = document.getElementById("container3");
-
-        // If the checkbox is checked, display the output text
-        if (checkBox.checked == true){
-          text.style.display = "block";
-        } else {
-          text.style.display = "none";
-        }
-      }
-    </script>
 
     <!-- Icons font CSS-->
     <link href="{{ url_for('static',filename='vendor/mdi-font/css/material-design-iconic-font.min.css') }}" rel="stylesheet" media="all">
@@ -47,109 +32,27 @@
             <div class="card card-2">
                 <div class="card-heading"></div>
                 <div class="card-body">
-                    <h2 class="title">Add event</h2>
-                    <form action="{{ url_for('handle_data') }}" method="post">
-                        <div class="input-group">
-                            <input class="input--style-2" type="text" placeholder="Name" name="name">
-                        </div>
-                        <div class="input-group">
-                            <input class="input--style-2" type="text" placeholder="Description" name="description">
-                        </div>
-                        <div class="row row-space">
-                            <div class="col-2">
-                              <div class="input-group">
-                                  <input class="input--style-2" type="text" placeholder="Location" name="location">
-                              </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <div class="rs-select2 js-select-simple select--no-search">
-                                        <select name="type" onchange="showTime()" id="selection">
-                                            <option disabled="disabled" selected="selected">Type</option>
-                                            <option value="school">School/Work</option>
-                                            <option value="shopping">Shopping</option>
-                                            <option value="meeting">Meeting</option>
-                                            <option value="food">Food</option>
-                                            <option value="other">Other</option>
-                                        </select>
-                                        <div class="select-dropdown"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="input-group">
-                            <input class="input--style-2" type="text" placeholder="Duration" name="duration">
-                        </div>
-                        <div id="container3" style="display: none">
-                        <div class="input-group">
-                            Start
-                        </div>
-                        <div class="row row-space">
-                            <div class="col-2">
-                                <div class="input-group">
-                                  Hour: <input type="number" name="end_hour" min="0" max="23" step="1" value="00">
-                        </div>
-                      </div>
-                        <div class="col-2">
-                          <div class="input-group">
-                            Minute: <input type="number" name="end_minute" min="0" max="59" step="1" value="00">
-                  </div>
-                </div>
-              </div>
-              <div class="input-group">
-                  <input class="input--style-2 js-datepicker" type="text" placeholder="Date" name="end_day">
-                  <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
-              </div>
-            </div>
-                        <div class="input-group">
-                            Deadline:
-                        </div>
-                        <div class="row row-space">
-                            <div class="col-2">
-                                <div class="input-group">
-                                  Hour: <input type="number" name="hour" min="0" max="23" step="1" value="00">
-                        </div>
-                      </div>
-                        <div class="col-2">
-                          <div class="input-group">
-                            Minute: <input type="number" name="minute" min="0" max="59" step="1" value="00">
-                  </div>
-                </div>
-              </div>
-              <div class="input-group">
-                  <input class="input--style-2 js-datepicker" type="text" placeholder="Date" name="day">
-                  <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
-              </div>
-              <div class="row row-space">
-                  <div class="col-2">
-                        Fixed:
-            </div>
-              <div class="col-2">
-                  <input display="inline" type="checkbox" name="fixed" id="fixed" onclick="showFixed()">
-      </div>
-    </div>
-
+                    <h2 class="title">Your events</h2>
                         <div class="p-t-30">
-                            <button class="btn btn--radius btn--green" type="submit">Add event</button>
+                            <a href="/addevent"><button class="btn btn--radius btn--green">+ Add Event</button></a>
                         </div>
-                        <div class="p-t-30">
-                            <a href="/index"><button class="btn btn--radius btn--green">Homepage</button></a>
+                        <div>
+                          <br/><br/>Today:<br/>
+                          {% for event in events %}
+                          <center>
+                          <hr /><h2>{{ event.name }}</h2>
+                          <h3>{{event.type}} {{event.duration}}</h3>
+                          <h4>Start: {{ event.timeframe.start_date }} {{event.timeframe.start_time}}</h4>
+                          <h4>End: {{ event.timeframe.end_date }} {{event.timeframe.end_time}}</h4>
+                          <p>Location: {{ event.lat }} {{ event.long }}</p>
+                          <p>{{ event.description }}</p>
+                          </center>
+                          {% endfor %}
                         </div>
-                    </form>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Jquery JS-->
-    <script src="{{ url_for('static',filename='vendor/jquery/jquery.min.js') }}"></script>
-    <!-- Vendor JS-->
-    <script src="{{ url_for('static',filename='vendor/select2/select2.min.js') }}"></script>
-    <script src="{{ url_for('static',filename='vendor/datepicker/moment.min.js') }}"></script>
-    <script src="{{ url_for('static',filename='vendor/datepicker/daterangepicker.js') }}"></script>
-
-    <!-- Main JS-->
-    <script src="{{ url_for('static',filename='js/global.js') }}"></script>
 
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 
