@@ -52,6 +52,10 @@ def handle_data():
     print(request.form['end_day'])
     print(request.form['end_hour'])
     print(request.form['end_minute'])
+    try:
+        print(request.form['fixed'])
+    except:
+        print("off")
     return render_template('index.html')
 
 app.run('0.0.0.0', 80)
