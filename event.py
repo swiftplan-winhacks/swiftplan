@@ -27,7 +27,7 @@ class Event:
         self.id = id
 
     def reschedule(self, new_scheduled_datetime):
-        self.scheluded_datetime = new_scheduled_datetime
+        self.scheduled_datetime = new_scheduled_datetime
 
 
 class Location:
