@@ -140,8 +140,8 @@ class Database:
 
         query = f"""
         UPDATE {username} SET
-        schedule_date = "{event.scheduled_datetime.date}",
-        schedule_time = "{event.scheduled_datetime.time}"
+        scheduled_date = "{event.scheduled_datetime.start_date}",
+        scheduled_time = "{event.scheduled_datetime.start_time}"
         WHERE id = {event.id};
         """
 
@@ -231,11 +231,22 @@ class Database:
         conn.close()
         return data
 
+    def fetchEventsByDay(self,login):
+        data = self.fetchEvents(login)
 
-#test
+        dictionary = {}
+        for e in data:
+            if(e.scheduled_datetime.start_date not in dictionary):
+                dictionary[e.scheduled_datetime.start_date] = []
+            dictionary[e.scheduled_datetime.start_date].append(e)
+        return dictionary
+
+
+# #test
 # db = Database("b")
 # db.addUser("test", "test")
 # for i in range(10):
 #     t = Timeframe("01.01.1234", "13:00","02.01.1234", "13:21", "3:00")
 #     e = Event(f"a{i}", "nothing", "lol", Location(00.123,00.123), True, t)
 #     db.addEvent("test", e)
+# print(db.fetchEventsByDay("test"))
