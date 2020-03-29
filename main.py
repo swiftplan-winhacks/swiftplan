@@ -20,7 +20,8 @@ def main():
 def index():
     # if('username' not in session):
     #    return redirect(url_for('login'))
-    return render_template('index.html')
+    return render_template('index.html', events=db.fetchEvents(session['username']))
+
 
 @app.route('/addUser', methods=['POST'])
 def addUser():
