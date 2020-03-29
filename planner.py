@@ -23,7 +23,7 @@ class Task:
 
 class Interval(NamedTuple):
     begin: datetime.datetime
-    end: datetime.datetimePKIN
+    end: datetime.datetime
     loc_id_b: Tuple
     loc_id_e: Tuple
 
@@ -52,7 +52,7 @@ class Planner:
         dt_fmt = "%d.%m.%Y %H:%M"
         rigid_tasks = []
         flexible_tasks = []
-PKIN
+
         for i, e in enumerate(self.events):
             b_st = e.timeframe.start_date + " " + e.timeframe.start_time
             b_t = datetime.datetime.strptime(b_st, dt_fmt)
