@@ -40,7 +40,7 @@
                           <br/><br/><h2>Today:</h2><br/><br/>
                           {% for event in events %}
                           <hr /><h2>Name: {{ event.name }}</h2>
-                          <h3>Type: {{event.type}} | Location: {{ event.location.lat }}, {{ event.location.lng }}</h3>
+                          <h3>Type: {{event.type}} | Location: {{ event.location_name }}</h3>
                           <p>Description: {{ event.desc }}</p>
                           <p>Start: {{ event.timeframe.start_date }}, {{ event.timeframe.start_time }}, Duration: {{ event.timeframe.duration }}</p>
                           <p>End: {{ event.timeframe.end_date }}, {{ event.timeframe.end_time }}</p>s
