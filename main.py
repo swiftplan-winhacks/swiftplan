@@ -35,6 +35,10 @@ def login():
         print("didn't log in")
     return render_template('index.html')
 
+@app.route('/addevent', methods=['POST'])
+def addEvent():
+        return render_template('addevent.html')
+
 @app.route('/handle_data', methods=['POST'])
 def handle_data():
     print(request.form['name'])
