@@ -12,8 +12,8 @@ def main():
 
 @app.route('/index')
 def index():
-    if('username' not in session):
-       return redirect(url_for('login'))
+    # if('username' not in session):
+    #    return redirect(url_for('login'))
     return render_template('index.html')
 
 @app.route('/addUser', methods=['POST'])
@@ -41,8 +41,16 @@ def addEvent():
 
 @app.route('/handle_data', methods=['POST'])
 def handle_data():
-    print(request.form['name'])
-    print(request.form['day'])
+    fixed = request.form['fixed']
+    if(fixed == 'on'):
+        fixed = 1
+    else:
+        fixed = 0
+
+    name = request.form['name']
+    day = request.form['day']
+    day = day.replace("/", ".")
+    print(day)
     print(request.form['type'])
     print(request.form['location'])
     print(request.form['duration'])
@@ -52,6 +60,7 @@ def handle_data():
     print(request.form['end_day'])
     print(request.form['end_hour'])
     print(request.form['end_minute'])
+
     return render_template('index.html')
 
 app.run('0.0.0.0', 80)
