@@ -56,7 +56,8 @@ def handle_data():
     desc = request.form['description']
     day = request.form['day']
     day = day.replace("/", ".")
-    
+    location = request.form['location']
+
     hours = request.form['hour']
     if(len(hours) < 2):
         hours = '0' + hours
@@ -91,7 +92,7 @@ def handle_data():
             end_time = time,
             duration = duration
             )
-        e = Event(name, type, desc, l, fixed, t)
+        e = Event(name, type, desc, l, fixed, t, location)
     else:
         l = Location(lat, lng)
         today = str(date.today()).split("-")
@@ -104,7 +105,7 @@ def handle_data():
             end_time = time,
             duration = duration
             )
-        e = Event(name, type, desc, l, fixed, t)
+        e = Event(name, type, desc, l, fixed, t, location)
 
     db.addEvent(session['username'], e)
 

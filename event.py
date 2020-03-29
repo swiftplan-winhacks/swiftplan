@@ -1,6 +1,6 @@
 
 class Event:
-    def __init__(self, name, type, desc, location, is_fixed, timeframe):
+    def __init__(self, name, type, desc, location, is_fixed, timeframe, location_name):
         if(is_fixed):
             if(timeframe.duration == None):
                 raise Exception("fixed event Timeframe has to have a duration")
@@ -15,7 +15,8 @@ class Event:
         self.location = location
         self.is_fixed = is_fixed
         self.timeframe = timeframe
-
+        self.location_name = location_name
+        
     def isFixed(self):
         if(self.is_fixed):
             return 1

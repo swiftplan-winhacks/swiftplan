@@ -49,7 +49,8 @@ class Database:
             end_time TEXT,
             scheduled_date TEXT,
             scheduled_time TEXT,
-            scheduled_duration TEXT
+            scheduled_duration TEXT,
+            location_name TEXT
         );
         """
 
@@ -114,7 +115,8 @@ class Database:
             "{event.timeframe.end_time}",
             "{event.scheduled_datetime.start_date}",
             "{event.scheduled_datetime.start_time}",
-            "{event.scheduled_datetime.duration}"
+            "{event.scheduled_datetime.duration}",
+            "{event.location_name}"
         );
         """
         
@@ -179,24 +181,6 @@ class Database:
         query = f"""
         SELECT * FROM {username}
         """
-        
-        """
-        NULL,
-            "{event.name}",
-            "{event.type}",
-            "{event.desc}",
-            {event.location.lat},
-            {event.location.lng},
-            {event.isFixed()},
-            "{event.timeframe.start_date}",
-            "{event.timeframe.start_time}",
-            "{event.timeframe.duration}",
-            "{event.timeframe.end_date}",
-            "{event.timeframe.end_time}",
-            "{event.scheduled_datetime.start_date}",
-            "{event.scheduled_datetime.start_time}",
-            "{event.scheduled_datetime.duration}"
-        """
         data = []
         try:
             for row in c.execute(query):
@@ -216,7 +200,8 @@ class Database:
                         end_date = row[10],
                         end_time = row[11],
                         duration = row[9]
-                    )
+                    ),
+                    location_name = row[15]
                 )
 
                 e.reschedule(Timeframe(row[12], row[13], row[12], row[13], row[14]))
