@@ -7,9 +7,6 @@ from event import Event, Location, Timeframe
 
 from mapsy import timeDistance
 
-HOME_LOCATION = Location(52.22977, 21.01178)  # PKIN
-
-
 @dataclass
 class Task:
     id: int
@@ -29,8 +26,9 @@ class Interval(NamedTuple):
 
 
 class Planner:
-    def __init__(self, events: List[Event]):
+    def __init__(self, events: List[Event], home_location: Location):
         self.events = events
+        self.home_location = home_location
         self.rigid_tasks, self.flexible_tasks, s_date, e_date = self.parse()
         days = [s_date + datetime.timedelta(days=i)
                 for i in range((e_date - s_date).days + 1)]
@@ -80,12 +78,12 @@ class Planner:
 
     def dist(self, loc_id1, loc_id2, time):
         if loc_id1 == -1:  # home destination
-            l1 = HOME_LOCATION
+            l1 = self.home_location
         else:
             l1 = self.events[loc_id1].location
 
         if loc_id2 == -1:
-            l2 = HOME_LOCATION
+            l2 = self.home_location
         else:
             l2 = self.events[loc_id2].location
 
@@ -188,6 +186,8 @@ class Planner:
 
 
 def test(n):
+    HOME_LOCATION = Location(52.22977, 21.01178)  # PKIN
+
     print(f"------Test with n = {n}------")
     events = []
     for i in range(n):
@@ -199,7 +199,7 @@ def test(n):
     print("Before:")
     for e in events:
         print(e.timeframe.start_date, e.timeframe.start_time)
-    planner = Planner(events)
+    planner = Planner(events, HOME_LOCATION)
     planner.plan()
     print("After:")
     for e in events:
