@@ -41,8 +41,9 @@
                           {% for event in events %}
                           <center>
                           <hr /><h2>Name: {{ event.name }}</h2>
-                          <h3>Type: {{event.type}} | Duration: {{event.duration}}</h3>
+                          <h3>Type: {{event.type}} | Location: {{event.location}}</h3>
                           <p>Description: {{ event.desc }}</p>
+                          <p>Timeframe: {{ event.timeframe }}</p>
                           </center>
                           {% endfor %}
                         </div>
