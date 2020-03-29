@@ -46,7 +46,12 @@ def handle_data():
     print(request.form['type'])
     print(request.form['location'])
     print(request.form['duration'])
-    print(request.form['fixed'])
+    print(request.form['day'])
+    print(request.form['hour'])
+    print(request.form['minute'])
+    print(request.form['end_day'])
+    print(request.form['end_hour'])
+    print(request.form['end_minute'])
     return render_template('index.html')
 
 app.run('0.0.0.0', 80)
