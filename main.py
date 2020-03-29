@@ -28,9 +28,9 @@ def addUser():
     if(request.method == "POST"):
         #robimy uz plain texrem czemu nie
         db.addUser(request.form['username'], request.form['password'])
+        return redirect(url_for('login'))
     else:
-        print("didn't add the user")
-    return render_template('index.html')
+        return render_template('signup.html')
 
 
 @app.route('/login', methods=['POST'])
@@ -38,9 +38,12 @@ def login():
     if(request.method == "POST"):
         #również prymitywne. To MVP to można
         session['username'] = request.form['username']
+        return redirect(url_for('index'))
     else:
-        print("didn't log in")
-    return render_template('index.html')
+        return render_template('login.html')
+    
+
+    
 
 @app.route('/addevent', methods=['POST', 'GET'])
 def addEvent():
@@ -64,7 +67,11 @@ def handle_data():
 
     lat = request.form['lat']
     lng = request.form['long']
-    duration = f"00:{request.form['duration']}"
+    duration = request.form['duration']
+
+    if len(str(duration)) < 2:
+        duration = f"{duration}0"
+    duration = f"00:{duration}"
     fixed = None
     try:
         #Fixed
@@ -110,6 +117,6 @@ def handle_data():
         db.updateEvent(session['username'], event)
 
     print("success")
-    return render_template('index.html')
+    return redirect(url_for('index'))
 
 app.run('0.0.0.0', 80)
