@@ -41,15 +41,17 @@ def addEvent():
 
 @app.route('/handle_data', methods=['POST'])
 def handle_data():
-    fixed = request.form['fixed']
-    if(fixed == 'on'):
+    fixed = 0
+    try:
+        a = request.form('fixed')
         fixed = 1
-    else:
+    except:
         fixed = 0
 
     name = request.form['name']
     day = request.form['day']
     day = day.replace("/", ".")
+    print(fixed)
     print(day)
     print(request.form['type'])
     print(request.form['location'])
@@ -60,7 +62,6 @@ def handle_data():
     print(request.form['end_day'])
     print(request.form['end_hour'])
     print(request.form['end_minute'])
-
     return render_template('index.html')
 
 app.run('0.0.0.0', 80)
