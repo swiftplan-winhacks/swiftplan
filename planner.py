@@ -182,12 +182,12 @@ class Planner:
 
     def plan(self):
         invls = self.freetime
-        for t in self.rigid_tasks:
-            self.place(t, invls)
-
-        self.flexible_tasks.sort(key=lambda task: -task.dur)
-
-        self.allocate(self.flexible_tasks, invls)
+        if len(self.rigid_tasks) > 0:
+            for t in self.rigid_tasks:
+                self.place(t, invls)
+        if len(self.flexible_tasks) > 0:
+            self.flexible_tasks.sort(key=lambda task: -task.dur)
+            self.allocate(self.flexible_tasks, invls)
 
         if not self.solution_found:
             n_missing = len(self.placed_tasks) - \
