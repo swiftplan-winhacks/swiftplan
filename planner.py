@@ -30,15 +30,39 @@ class Planner:
         self.events = events
         self.home_location = home_location
         self.rigid_tasks, self.flexible_tasks, s_date, e_date = self.parse()
-        days = [s_date + datetime.timedelta(days=i)
-                for i in range((e_date - s_date).days + 1)]
+
         home_loc_id = -1
-        self.freetime = [
-            Interval(d + datetime.timedelta(hours=7),
-                     d + datetime.timedelta(hours=23),
-                     home_loc_id,
-                     home_loc_id) for d in days
-        ]
+            
+        if datetime.datetime.now().date() != s_date.date():
+            days = [s_date + datetime.timedelta(days=i)
+                    for i in range((e_date - s_date).days + 1)]
+            self.freetime = [
+                Interval(d + datetime.timedelta(hours=7),
+                        d + datetime.timedelta(hours=23),
+                        home_loc_id,
+                        home_loc_id) for d in days
+            ]
+
+        else:
+            today_int = [Interval(
+                datetime.datetime.now() + datetime.timedelta(minutes=1),
+                datetime.datetime.now().replace(hour=23, minute=0),
+                home_loc_id,
+                home_loc_id
+            )]
+            
+            days = [s_date + datetime.timedelta(days=i)
+                    for i in range(1, (e_date - s_date).days + 1)]
+            
+            self.freetime = [today_int] + [
+                Interval(d + datetime.timedelta(hours=7),
+                        d + datetime.timedelta(hours=23),
+                        home_loc_id,
+                        home_loc_id) for d in days
+            ]
+
+
+
         self.placed_tasks = dict()
         self.solution_found = False
         self.distances = dict()
