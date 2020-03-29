@@ -8,14 +8,13 @@ db = Database("swiftplan")
 
 @app.route('/')
 def main():
-        return redirect(url_for('index'))
+    return redirect(url_for('index'))
 
 @app.route('/index')
 def index():
-    if('username' not in session):
-        redirect(url_for('login'))
-    else:
-        return render_template('index.html')
+    #if('username' not in session):
+    #    redirect(url_for('login'))
+    return render_template('index.html')
 
 @app.route('/addUser', methods=['POST'])
 def addUser():
