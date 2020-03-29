@@ -17,11 +17,14 @@
         var checkBox = document.getElementById("fixed");
         // Get the output text
         var text = document.getElementById("container3");
+        var dead = document.getElementById("container_deadline");
 
         // If the checkbox is checked, display the output text
         if (checkBox.checked == true){
           text.style.display = "block";
+          dead.style.display = "none";
         } else {
+          dead.style.display = "block";
           text.style.display = "none";
         }
       }
@@ -104,6 +107,7 @@
                   <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
               </div>
             </div>
+            <div id="container_deadline">
                         <div class="input-group">
                             Deadline:
                         </div>
@@ -119,6 +123,7 @@
                   </div>
                 </div>
               </div>
+            </div>
               <div class="input-group">
                   <input class="input--style-2 js-datepicker" type="text" placeholder="Date" name="end_day">
                   <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
