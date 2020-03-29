@@ -1,6 +1,7 @@
 import googlemaps
 from datetime import datetime
 import responses
+import Location from event.py
 
 gmaps = googlemaps.Client(key='AIzaSyCxbvfxL6I4sScgSpwcwTiNY2D4HbGDKoA')
 
