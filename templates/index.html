@@ -41,9 +41,10 @@
                           {% for event in events %}
                           <center>
                           <hr /><h2>Name: {{ event.name }}</h2>
-                          <h3>Type: {{event.type}} | Location: {{event.location}}</h3>
+                          <h3>Type: {{event.type}} | Location: {{ event.location.lat }}, {{ event.location.lng }}</h3>
                           <p>Description: {{ event.desc }}</p>
-                          <p>Timeframe: {{ event.timeframe }}</p>
+                          <p>Start: {{ event.timeframe.start_date }}, {{ event.timeframe.start_time }}, Duration: {{ event.timeframe.duration }}</p>
+                          <p>End: {{ event.timeframe.end_date }}, {{ event.timeframe.end_time }}</p>
                           </center>
                           {% endfor %}
                         </div>
