@@ -29,6 +29,36 @@
         }
       }
     </script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyCxbvfxL6I4sScgSpwcwTiNY2D4HbGDKoA"></script>
+    <script>
+      var searchInput = 'search_input';
+
+      $(document).ready(function () {
+          var autocomplete;
+          autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
+              types: ['geocode'],
+          });
+        
+          google.maps.event.addListener(autocomplete, 'place_changed', function () {
+              var near_place = autocomplete.getPlace();
+              document.getElementById('loc_lat').value = near_place.geometry.location.lat();
+              document.getElementById('loc_long').value = near_place.geometry.location.lng();
+          
+              document.getElementById('latitude_view').innerHTML = near_place.geometry.location.lat();
+              document.getElementById('longitude_view').innerHTML = near_place.geometry.location.lng();
+          });
+      });
+
+      $(document).on('change', '#'+searchInput, function () {
+        document.getElementById('latitude_input').value = '';
+        document.getElementById('longitude_input').value = '';
+      
+        document.getElementById('latitude_view').innerHTML = '';
+        document.getElementById('longitude_view').innerHTML = '';
+      });
+    </script>
 
     <!-- Icons font CSS-->
     <link href="{{ url_for('static',filename='vendor/mdi-font/css/material-design-iconic-font.min.css') }}" rel="stylesheet" media="all">
@@ -56,7 +86,9 @@
                             <input class="input--style-2" type="text" placeholder="Name" name="name">
                         </div>
                         <div class="input-group">
-                            <input class="input--style-2" type="text" placeholder="Description" name="description">
+                            <input class="input--style-2" type="text" id="search_input" placeholder="Description" name="description">
+                            <input type="hidden" id="loc_lat" />
+                            <input type="hidden" id="loc_long" />
                         </div>
                         <div class="row row-space">
                             <div class="col-2">
